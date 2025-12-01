@@ -17,16 +17,16 @@ SET UNIQUE_CHECKS=0;
 -- -----------------------------------------------------
 
 INSERT INTO `USUARIOS` (`nome`, `email`, `senha`, `perfil`) VALUES
-('João Silva', 'joao.silva@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'organizador'),
-('Maria Santos', 'maria.santos@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'organizador'),
-('Pedro Oliveira', 'pedro.oliveira@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'organizador'),
-('Ana Costa', 'ana.costa@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'participante'),
-('Carlos Pereira', 'carlos.pereira@cefet.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'participante'),
-('Julia Ferreira', 'julia.ferreira@cefet.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'participante'),
-('Roberto Alves', 'roberto.alves@cefet.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'participante'),
-('Fernanda Lima', 'fernanda.lima@cefet.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'participante'),
-('Lucas Rodrigues', 'lucas.rodrigues@outlook.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'participante'),
-('Mariana Souza', 'mariana.souza@outlook.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'participante');
+('João Silva', 'joao.silva@gmail.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'organizador'),
+('Maria Santos', 'maria.santos@gmail.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'organizador'),
+('Pedro Oliveira', 'pedro.oliveira@gmail.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'organizador'),
+('Ana Costa', 'ana.costa@gmail.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'participante'),
+('Carlos Pereira', 'carlos.pereira@cefet.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'participante'),
+('Julia Ferreira', 'julia.ferreira@cefet.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'participante'),
+('Roberto Alves', 'roberto.alves@cefet.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'participante'),
+('Fernanda Lima', 'fernanda.lima@cefet.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'participante'),
+('Lucas Rodrigues', 'lucas.rodrigues@outlook.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'participante'),
+('Mariana Souza', 'mariana.souza@outlook.com', '$2y$12$v33.33w9YzCOw.r2snyRCedpg1N7GagxfXw3U9Lha/TNFNQSchcwG', 'participante');
 
 -- Nota: As senhas acima são hashes de exemplo (hash de "password")
 -- Em produção, gere hashes reais usando bcrypt ou similar
