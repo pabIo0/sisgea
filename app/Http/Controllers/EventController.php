@@ -55,10 +55,7 @@ class EventController extends Controller
     public function dashboardParticipant()
     {
         $user = Auth::user();
-        // Busca eventos onde o usuário está inscrito
-        // Nota: Isso requer que o relacionamento 'eventos' esteja definido no Model User
-        // Se não tiver, podemos fazer via query manual:
-        $inscricoes = Inscricao::where('usuario_id', $user->id)
+        $inscricoes = Inscricao::where('INSCRICOES.usuario_id', $user->id)
             ->join('EVENTOS', 'INSCRICOES.evento_id', '=', 'EVENTOS.id')
             ->select('EVENTOS.*', 'INSCRICOES.created_at as data_inscricao')
             ->get();

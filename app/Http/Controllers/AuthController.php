@@ -18,26 +18,29 @@ class AuthController extends Controller
     public function register(Request $request) {
         // Validação
         $request->validate([
-            'nome' => 'required',
-            // Verifica se o email é único na tabela USUARIOS
-            'email' => 'required|email|unique:USUARIOS,email', 
-            'senha' => 'required|min:6'
+            'nome' => 'required|string|max:255',
+            'email' => 'required|email|unique:USUARIOS,email', // Verifica se o email é único na tabela USUARIOS 
+            'senha' => 'required|min:6|confirmed', // 'confirmed' checa o campo senha_confirmation
+            'perfil' => 'required|in:participante,organizador' // Garante que é um dos dois
         ]);
 
-        // Criar usuário no banco
+        // Criar usuário
         User::create([
             'nome' => $request->nome,
             'email' => $request->email,
-            'senha' => Hash::make($request->senha), // Hash seguro
-            'perfil' => $request->perfil ?? 'participante' // Padrão participante se não vier
+            'senha' => Hash::make($request->senha),
+            'perfil' => $request->perfil
         ]);
 
         // Login automático após cadastro
-        $credentials = ['email' => $request->email, 'password' => $request->senha];
-        
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->senha])) {
             $request->session()->regenerate();
-            return redirect()->route('home');
+            
+            // Redirecionamento p/ organizador
+            if ($request->perfil == 'organizador') {
+                return redirect()->route('dashboard.organizer');
+            }
+            return redirect()->route('dashboard.participant');
         }
 
         return redirect()->route('login');
@@ -53,10 +56,10 @@ class AuthController extends Controller
         // Validação
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'], // O input chama password, mesmo a coluna sendo senha
+            'password' => ['required'],
         ]);
 
-        // Tenta logar
+        // tenta logar
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             
@@ -70,8 +73,8 @@ class AuthController extends Controller
 
         // Erro de login
         return back()->withErrors([
-            'email' => 'As credenciais fornecidas estão incorretas.',
-        ]);
+            'email' => 'Email ou senha incorretos.',
+        ])->onlyInput('email');
     }
 
     // === LOGOUT ===

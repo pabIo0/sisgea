@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventoController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\AuthController;
 use App\Models\Evento;
 

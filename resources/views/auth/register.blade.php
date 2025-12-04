@@ -10,8 +10,7 @@
                     <p class="text-slate-500 text-sm mt-1">Junte-se a nós para gerenciar ou participar de eventos.</p>
                 </div>
 
-                <form method="POST" action="#">
-                    @csrf
+                <form method="POST" action="{{ route('register.post') }}"> @csrf
 
                     <div class="mb-4">
                         <label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome Completo</label>
@@ -19,8 +18,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="login" class="block text-sm font-medium text-slate-700 mb-1">Login (Usuário)</label>
-                        <input type="text" name="login" id="login" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                        <input type="email" name="email" id="email" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
                     </div>
 
                     <div class="mb-4">
@@ -30,23 +29,23 @@
                             <option value="organizador">Organizador</option>
                         </select>
                     </div>
-
+                    
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Senha</label>
-                        <input type="password" name="password" id="password" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                        <input type="password" name="senha" id="senha" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
                     </div>
 
                     <div class="mb-6">
                         <label for="password_confirmation" class="block text-sm font-medium text-slate-700 mb-1">Confirmar Senha</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                        <input type="password" name="senha_confirmation" id="senha_confirmation" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
                     </div>
 
                     <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-lg shadow-md transition duration-200">
                         Cadastrar
                     </button>
 
-                    <div class="mt-4 text-center">
-                        <a href="/login" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline">Já tem uma conta? Faça login</a>
+                    <div class="mt-5 text-center">
+                        <a href="{{ route('login') }}" class="text-sm text-indigo-600 hover:text-indigo-800 hover:underline">Já tem uma conta? Faça Login</a>
                     </div>
                 </form>
             </div>
