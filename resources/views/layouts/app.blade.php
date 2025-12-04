@@ -31,11 +31,26 @@
 
                 <div class="hidden sm:flex sm:items-center">
                     <div class="relative flex items-center gap-4">
-                        <span class="text-sm">Olá, Daniel</span>
-                        <form method="POST" action="#">
-                            @csrf
-                            <button type="submit" class="text-sm bg-indigo-700 hover:bg-indigo-800 px-3 py-1 rounded transition">Logout</button>
-                        </form>
+                        @auth
+                            <span class="text-sm">Olá, {{ Auth::user()->nome }}</span>
+                            
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="text-sm bg-indigo-700 hover:bg-indigo-800 px-3 py-1 rounded transition">
+                                    Logout
+                                </button>
+                            </form>
+                        @else
+                            <span class="text-sm text-gray-300">Visitante</span>
+                            
+                            <a href="{{ route('login') }}" class="text-sm bg-white text-indigo-600 hover:bg-gray-100 px-3 py-1 rounded transition font-medium">
+                                Login
+                            </a>
+                            
+                            <a href="{{ route('register') }}" class="text-sm bg-indigo-800 hover:bg-indigo-900 px-3 py-1 rounded transition">
+                                Cadastrar
+                            </a>
+                        @endauth
                     </div>
                 </div>
 
@@ -56,10 +71,10 @@
             </div>
             <div class="pt-4 pb-4 border-t border-indigo-700">
                 <div class="flex items-center px-4">
-                    <div class="ml-3">
-                        <div class="text-base font-medium text-white">Usuário Admin</div>
-                        <div class="text-sm font-medium text-indigo-200">admin@sisgea.com</div>
-                    </div>
+                    @auth
+                        <div class="text-base font-medium text-white">{{ Auth::user()->nome }}</div>
+                        <div class="text-sm font-medium text-indigo-200">{{ Auth::user()->email }}</div>
+                    @endauth
                 </div>
                 <div class="mt-3 space-y-1">
                     <a href="/events/create" class="block px-4 py-2 text-base font-medium text-indigo-100 hover:text-white hover:bg-indigo-700">Criar Evento</a>

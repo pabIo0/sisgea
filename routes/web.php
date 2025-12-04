@@ -5,14 +5,13 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\AuthController;
 use App\Models\Evento;
 
-// 1. Página Inicial (Welcome)
+// --- PÁGINA INICIAL (WELCOME) ---
 Route::get('/', function () {
-    // Busca todos os eventos futuros
-    $events = Evento::where('data', '>=', now())->orderBy('data')->get();
+    $events = Evento::where('data', '>=', now())->orderBy('data')->take(6)->get();
     return view('welcome', compact('events'));
 })->name('home');
 
-// 2. Página de Contato
+// --- CONTATO ---
 Route::get('/contato', function () {
     return view('contato');
 })->name('contato');
@@ -27,22 +26,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // --- ÁREA RESTRITA (LOGADO) ---
 Route::middleware(['auth'])->group(function () {
     
-    // CRUD de Eventos
-    Route::resource('events', EventoController::class);
+    // Resource completa para eventos (index, create, store, show, edit, update, destroy)
+    // Nota: Como suas views estão em 'events', o resource vai procurar lá automaticamente
+    Route::resource('events', EventController::class);
 
-    // Rota para inscrição
-    Route::post('/eventos/{id}/inscrever', [EventoController::class, 'inscrever'])->name('eventos.inscrever');
-    Route::get('/eventos/{id}/inscritos', [EventoController::class, 'verInscritos'])->name('eventos.inscritos');
+    // Dashboards
+    Route::get('/meus-eventos', [EventController::class, 'dashboardParticipant'])->name('dashboard.participant');
+    Route::get('/organizador', [EventController::class, 'dashboardOrganizer'])->name('dashboard.organizer');
 
-    // --- DASHBOARDS ---
-    
-    // Visão do Participante (Minhas Inscrições)
-    Route::get('/meus-eventos', function () {
-        return view('dashboard.participant');
-    })->name('dashboard.participant');
-
-    // Visão do Organizador (Meus Eventos Criados)
-    Route::get('/meus-eventos-criados', function () {
-        return view('dashboard.organizer');
-    })->name('dashboard.organizer');
+    // Inscrição (mantendo a lógica que já tínhamos)
+    Route::post('/events/{id}/inscrever', [EventController::class, 'inscrever'])->name('events.inscrever');
 });
