@@ -42,8 +42,7 @@
         </div>
     @endforeach
 </div>
-
-        <!-- Evento 2 -->
+        <!-- Evento 1 -->
         <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 overflow-hidden border border-slate-100 flex flex-col h-full">
             <div class="p-6 flex-grow">
                 <div class="flex justify-between items-start mb-4">
@@ -77,7 +76,7 @@
             </div>
         </div>
 
-        <!-- Evento 3 -->
+        <!-- Evento 2 -->
         <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 overflow-hidden border border-slate-100 flex flex-col h-full">
             <div class="p-6 flex-grow">
                 <div class="flex justify-between items-start mb-4">

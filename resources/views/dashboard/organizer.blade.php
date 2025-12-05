@@ -23,51 +23,44 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-slate-200">
-                    <!-- Evento 1 -->
-                    <tr class="hover:bg-slate-50 transition">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-slate-900">Workshop de Laravel 10</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-slate-500">25/11/2025</div>
-                            <div class="text-sm text-slate-400">14:00</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-slate-500">Auditório Principal</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
-                                42 / 50
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</a>
-                            <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
-                        </td>
-                    </tr>
-
-                    <!-- Evento 2 -->
-                    <tr class="hover:bg-slate-50 transition">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-slate-900">Conferência de Tech 2025</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-slate-500">02/12/2025</div>
-                            <div class="text-sm text-slate-400">09:00</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-slate-500">Centro de Convenções</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                150 / 200
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</a>
-                            <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
-                        </td>
-                    </tr>
+                    @foreach($eventos as $evento)
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-slate-900">{{ $evento->titulo }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-slate-500">{{ date('d/m/Y', strtotime($evento->data)) }}</div>
+                                <div class="text-sm text-slate-400">{{ substr($evento->hora, 0, 5) }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-slate-500">{{ $evento->local }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                                    {{ $evento->limite_vagas }} vagas
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-end gap-3">
+                                <a href="{{ route('events.inscritos', $evento->id) }}" class="text-green-600 hover:text-green-900">Ver Inscritos</a>
+                                
+                                <a href="{{ route('events.edit', $evento->id) }}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
+                                
+                                <form action="{{ route('events.destroy', $evento->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este evento?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:text-red-900 cursor-pointer">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    
+                    @if($eventos->isEmpty())
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                                Você ainda não criou nenhum evento.
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

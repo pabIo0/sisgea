@@ -71,4 +71,67 @@ class EventController extends Controller
         
         return view('dashboard.organizer', compact('eventos'));
     }
+
+    public function edit($id)
+    {
+        $evento = Evento::findOrFail($id);
+
+        // Só o dono pode editar
+        if (Auth::id() != $evento->usuario_id) {
+            return redirect()->route('dashboard.organizer')->with('error', 'Acesso não autorizado');
+        }
+
+        return view('events.edit', compact('evento'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $evento = Evento::findOrFail($id);
+
+        if (Auth::id() != $evento->usuario_id) {
+            abort(403);
+        }
+
+        $request->validate([
+            'titulo' => 'required',
+            'descricao' => 'required',
+            'data' => 'required|date',
+            'hora' => 'required',
+            'local' => 'required',
+            'limite_vagas' => 'required|integer'
+        ]);
+
+        $evento->update($request->all());
+
+        return redirect()->route('dashboard.organizer')->with('success', 'Evento atualizado com sucesso!');
+    }
+
+    public function destroy($id)
+    {
+        $evento = Evento::findOrFail($id);
+
+        if (Auth::id() != $evento->usuario_id) {
+            abort(403);
+        }
+
+        $evento->delete();
+
+        return redirect()->route('dashboard.organizer')->with('success', 'Evento excluído com sucesso!');
+    }
+
+    public function verInscritos($id)
+    {
+        $evento = Evento::findOrFail($id);
+        
+        if (Auth::id() != $evento->usuario_id) {
+            return redirect()->route('dashboard.organizer')->with('error', 'Acesso negado.');
+        }
+
+        $inscritos = Inscricao::where('INSCRICOES.evento_id', $id)
+            ->join('USUARIOS', 'INSCRICOES.usuario_id', '=', 'USUARIOS.id')
+            ->select('USUARIOS.nome', 'USUARIOS.email', 'INSCRICOES.created_at as data_inscricao')
+            ->get();
+
+        return view('events.inscritos', compact('evento', 'inscritos'));
+    }
 }
