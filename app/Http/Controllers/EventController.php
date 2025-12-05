@@ -134,4 +134,34 @@ class EventController extends Controller
 
         return view('events.inscritos', compact('evento', 'inscritos'));
     }
+
+    public function inscrever($id)
+    {
+        $user = Auth::user();
+        $evento = Evento::findOrFail($id);
+
+        // 1. Verifica se já está inscrito
+        $jaInscrito = Inscricao::where('usuario_id', $user->id)
+            ->where('evento_id', $id)
+            ->exists();
+
+        if ($jaInscrito) {
+            return back()->with('error', 'Você já está inscrito neste evento!');
+        }
+
+        // Conta quantas inscrições esse evento já tem
+        $totalInscritos = Inscricao::where('evento_id', $id)->count();
+
+        if ($evento->limite_vagas > 0 && $totalInscritos >= $evento->limite_vagas) {
+            return back()->with('error', 'Desculpe, as vagas para este evento esgotaram!');
+        }
+
+        // 3. Cria a inscrição
+        Inscricao::create([
+            'usuario_id' => $user->id,
+            'evento_id' => $id
+        ]);
+
+        return back()->with('success', 'Inscrição realizada com sucesso!');
+    }
 }

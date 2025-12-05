@@ -17,7 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id');
             $table->unsignedBigInteger('evento_id');
 
-            $table->timestamps();
+            // Cria apenas o created_at
+            $table->timestamp('created_at')->useCurrent();
 
             // Restrições
             $table->foreign('usuario_id')

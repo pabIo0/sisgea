@@ -41,16 +41,29 @@
                 </div>
 
                 @auth
-                    <form action="#" method="POST">
-                        @csrf
-                        <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:-translate-y-0.5">
-                            Inscrever-se Agora
+                    <?php 
+                        // Verifica se o usuário já se inscreveu neste evento
+                        $jaInscrito = \App\Models\Inscricao::where('usuario_id', Auth::id())
+                            ->where('evento_id', $evento->id)
+                            ->exists();
+                    ?>
+
+                    @if($jaInscrito)
+                        <button disabled class="bg-gray-400 text-white font-bold py-3 px-8 rounded-lg cursor-not-allowed shadow-none">
+                            Você já está inscrito
                         </button>
-                    </form>
+                    @else
+                        <form action="{{ route('events.inscrever', $evento->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:-translate-y-0.5">
+                                Inscrever-se Agora
+                            </button>
+                        </form>
+                    @endif
                 @else
                     <div class="text-center sm:text-right">
                         <p class="text-slate-500 mb-2">Faça login para garantir sua vaga.</p>
-                        <a href="/login" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition">
+                        <a href="{{ route('login') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition">
                             Fazer Login
                         </a>
                     </div>
