@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'SISGEA - Meus eventos')
+
+
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
@@ -42,9 +45,9 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex justify-end gap-3">
                                 <a href="{{ route('events.inscritos', $evento->id) }}" class="text-green-600 hover:text-green-900">Ver Inscritos</a>
-                                
+
                                 <a href="{{ route('events.edit', $evento->id) }}" class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                                
+
                                 <form action="{{ route('events.destroy', $evento->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este evento?');">
                                     @csrf
                                     @method('DELETE')
@@ -53,7 +56,7 @@
                             </td>
                         </tr>
                     @endforeach
-                    
+
                     @if($eventos->isEmpty())
                         <tr>
                             <td colspan="5" class="px-6 py-4 text-center text-gray-500">

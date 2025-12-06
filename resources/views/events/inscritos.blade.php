@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'SISGEA - Inscrições')
+
+
 @section('content')
 <div class="max-w-4xl mx-auto">
     <div class="mb-6 flex justify-between items-center">

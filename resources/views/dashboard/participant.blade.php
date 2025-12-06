@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'SISGEA - Meus eventos')
+
+
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
@@ -10,7 +13,7 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    
+
         @if(isset($inscricoes) && count($inscricoes) > 0)
             @foreach($inscricoes as $inscricao)
                 <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-300 overflow-hidden border border-slate-100 flex flex-col h-full">

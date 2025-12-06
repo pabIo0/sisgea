@@ -9,11 +9,19 @@ use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+
+    // Listar eventos
+    public function index()
+    {
+        $eventos = Evento::all();
+
+        return view('welcome', ['eventos' => $eventos]);
+    }
     // 1. Mostrar o formulário de criação
     public function create()
     {
         // Retorna a view que está em resources/views/events/create.blade.php
-        return view('events.create'); 
+        return view('events.create');
     }
 
     // 2. Salvar o evento no banco
@@ -48,7 +56,17 @@ class EventController extends Controller
     public function show($id)
     {
         $evento = Evento::findOrFail($id);
-        return view('events.show', compact('evento'));
+
+        // Verifica se o usuário está logado
+        $jaInscrito = false;
+
+        if (Auth::check()) {
+            $jaInscrito = Inscricao::where('usuario_id', Auth::id())
+                ->where('evento_id', $id)
+                ->exists();
+        }
+
+        return view('events.show', compact('evento', 'jaInscrito'));
     }
 
     // Dashboard do Participante
@@ -68,7 +86,7 @@ class EventController extends Controller
     {
         $user = Auth::user();
         $eventos = Evento::where('usuario_id', $user->id)->get();
-        
+
         return view('dashboard.organizer', compact('eventos'));
     }
 
@@ -122,7 +140,7 @@ class EventController extends Controller
     public function verInscritos($id)
     {
         $evento = Evento::findOrFail($id);
-        
+
         if (Auth::id() != $evento->usuario_id) {
             return redirect()->route('dashboard.organizer')->with('error', 'Acesso negado.');
         }

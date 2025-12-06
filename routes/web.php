@@ -3,18 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AuthController;
-use App\Models\Evento;
 
 // --- PÁGINA INICIAL (WELCOME) ---
-Route::get('/', function () {
-    $events = Evento::where('data', '>=', now())->orderBy('data')->take(6)->get();
-    return view('welcome', compact('events'));
-})->name('home');
-
-// --- CONTATO ---
-Route::get('/contato', function () {
-    return view('contato');
-})->name('contato');
+Route::get('/', [EventController::class,'index']);
 
 // --- AUTENTICAÇÃO ---
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');

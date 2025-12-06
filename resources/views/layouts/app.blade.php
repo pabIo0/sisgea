@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Event Platform') }}</title>
+    <title>@yield ('title', 'SISGEA')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -33,7 +35,7 @@
                     <div class="relative flex items-center gap-4">
                         @auth
                             <span class="text-sm">Olá, {{ Auth::user()->nome }}</span>
-                            
+
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="text-sm bg-indigo-700 hover:bg-indigo-800 px-3 py-1 rounded transition">
@@ -42,11 +44,11 @@
                             </form>
                         @else
                             <span class="text-sm text-gray-300">Visitante</span>
-                            
+
                             <a href="{{ route('login') }}" class="text-sm bg-white text-indigo-600 hover:bg-gray-100 px-3 py-1 rounded transition font-medium">
                                 Login
                             </a>
-                            
+
                             <a href="{{ route('register') }}" class="text-sm bg-indigo-800 hover:bg-indigo-900 px-3 py-1 rounded transition">
                                 Cadastrar
                             </a>

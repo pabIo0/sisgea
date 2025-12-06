@@ -9,9 +9,9 @@ class Inscricao extends Model
 {
     use HasFactory;
 
-    protected $table = 'INSCRICOES';
+    protected $table = 'inscricoes';
 
-    public $timestamps = false; // A tabela de inscrições não tem updated_at
+    public $timestamps = true; // A tabela de inscrições não tem updated_at
 
     protected $fillable = ['usuario_id', 'evento_id'];
 }

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'Criar Evento')
+
+
 @section('content')
 <div class="max-w-3xl mx-auto">
     <div class="mb-6">

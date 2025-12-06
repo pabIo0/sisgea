@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', 'SISGEA - Login')
+
+
 @section('content')
 <div class="flex justify-center items-center min-h-[calc(100vh-200px)]">
     <div class="w-full max-w-md bg-white rounded-xl shadow-md overflow-hidden">
