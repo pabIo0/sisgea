@@ -31,8 +31,12 @@ class EventController extends Controller
         $request->validate([
             'titulo' => 'required',
             'descricao' => 'required',
-            'data' => 'required|date',
-            'hora' => 'required',
+            'data' => 'required|date|after_or_equal:today',
+            'hora' => ['required', function ($attribute, $value, $fail) use ($request) {
+                if ($request->data == now()->format('Y-m-d') && $value < now()->format('H:i')) {
+                    $fail('A hora do evento não pode ser no passado.');
+                }
+            }],
             'local' => 'required',
             'limite_vagas' => 'required|integer'
         ]);
@@ -113,10 +117,19 @@ class EventController extends Controller
         $request->validate([
             'titulo' => 'required',
             'descricao' => 'required',
-            'data' => 'required|date',
-            'hora' => 'required',
+            'data' => 'required|date|after_or_equal:today',
+            'hora' => ['required', function ($attribute, $value, $fail) use ($request) {
+                if ($request->data == now()->format('Y-m-d') && $value < now()->format('H:i')) {
+                    $fail('A hora do evento não pode ser no passado.');
+                }
+            }],
             'local' => 'required',
-            'limite_vagas' => 'required|integer'
+            'limite_vagas' => ['required', 'integer', function ($attribute, $value, $fail) use ($evento) {
+                $totalInscritos = $evento->inscricoes()->count();
+                if ($value < $totalInscritos) {
+                    $fail("O limite de vagas não pode ser menor que o número de inscritos atuais ($totalInscritos).");
+                }
+            }]
         ]);
 
         $evento->update($request->all());
@@ -153,33 +166,5 @@ class EventController extends Controller
         return view('events.inscritos', compact('evento', 'inscritos'));
     }
 
-    public function inscrever($id)
-    {
-        $user = Auth::user();
-        $evento = Evento::findOrFail($id);
 
-        // 1. Verifica se já está inscrito
-        $jaInscrito = Inscricao::where('usuario_id', $user->id)
-            ->where('evento_id', $id)
-            ->exists();
-
-        if ($jaInscrito) {
-            return back()->with('error', 'Você já está inscrito neste evento!');
-        }
-
-        // Conta quantas inscrições esse evento já tem
-        $totalInscritos = Inscricao::where('evento_id', $id)->count();
-
-        if ($evento->limite_vagas > 0 && $totalInscritos >= $evento->limite_vagas) {
-            return back()->with('error', 'Desculpe, as vagas para este evento esgotaram!');
-        }
-
-        // 3. Cria a inscrição
-        Inscricao::create([
-            'usuario_id' => $user->id,
-            'evento_id' => $id
-        ]);
-
-        return back()->with('success', 'Inscrição realizada com sucesso!');
-    }
 }

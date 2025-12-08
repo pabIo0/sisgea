@@ -19,33 +19,52 @@
                 @csrf
                 @method('PUT') <div class="mb-6">
                     <label for="titulo" class="block text-sm font-medium text-slate-700 mb-1">Título</label>
-                    <input type="text" name="titulo" value="{{ $evento->titulo }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg" required>
+                    <input type="text" name="titulo" value="{{ old('titulo', $evento->titulo) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg @error('titulo') border-red-500 @enderror" required>
+                    @error('titulo')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-6">
                     <label for="descricao" class="block text-sm font-medium text-slate-700 mb-1">Descrição</label>
-                    <textarea name="descricao" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-lg" required>{{ $evento->descricao }}</textarea>
+                    <textarea name="descricao" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-lg @error('descricao') border-red-500 @enderror" required>{{ old('descricao', $evento->descricao) }}</textarea>
+                    @error('descricao')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label for="data" class="block text-sm font-medium text-slate-700 mb-1">Data</label>
-                        <input type="date" name="data" value="{{ $evento->data }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg" required>
+                        <input type="date" name="data" value="{{ old('data', $evento->data) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg @error('data') border-red-500 @enderror" required>
+                        @error('data')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="hora" class="block text-sm font-medium text-slate-700 mb-1">Hora</label>
-                        <input type="time" name="hora" value="{{ substr($evento->hora, 0, 5) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg" required>
+                        <input type="time" name="hora" value="{{ old('hora', substr($evento->hora, 0, 5)) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg @error('hora') border-red-500 @enderror" required>
+                        @error('hora')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
                         <label for="local" class="block text-sm font-medium text-slate-700 mb-1">Local</label>
-                        <input type="text" name="local" value="{{ $evento->local }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg" required>
+                        <input type="text" name="local" value="{{ old('local', $evento->local) }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg @error('local') border-red-500 @enderror" required>
+                        @error('local')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="limite_vagas" class="block text-sm font-medium text-slate-700 mb-1">Limite de Vagas</label>
-                        <input type="number" name="limite_vagas" value="{{ $evento->limite_vagas }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg" required>
+                        <input type="number" name="limite_vagas" value="{{ old('limite_vagas', $evento->limite_vagas) }}" min="{{ $evento->inscricoes()->count() }}" class="w-full px-4 py-2 border border-slate-300 rounded-lg @error('limite_vagas') border-red-500 @enderror" required>
+                        <p class="text-xs text-slate-500 mt-1">Mínimo permitido: {{ $evento->inscricoes()->count() }} (participantes já inscritos)</p>
+                        @error('limite_vagas')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 

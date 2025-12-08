@@ -20,33 +20,51 @@
 
                 <div class="mb-6">
                     <label for="titulo" class="block text-sm font-medium text-slate-700 mb-1">Título do Evento</label>
-                    <input type="text" name="titulo" id="titulo" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                    <input type="text" name="titulo" id="titulo" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition @error('titulo') border-red-500 @enderror" value="{{ old('titulo') }}" required>
+                    @error('titulo')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="mb-6">
                     <label for="descricao" class="block text-sm font-medium text-slate-700 mb-1">Descrição</label>
-                    <textarea name="descricao" id="descricao" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required></textarea>
+                    <textarea name="descricao" id="descricao" rows="5" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition @error('descricao') border-red-500 @enderror" required>{{ old('descricao') }}</textarea>
+                    @error('descricao')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label for="data" class="block text-sm font-medium text-slate-700 mb-1">Data</label>
-                        <input type="date" name="data" id="data" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                        <input type="date" name="data" id="data" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition @error('data') border-red-500 @enderror" value="{{ old('data') }}" required>
+                        @error('data')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="hora" class="block text-sm font-medium text-slate-700 mb-1">Hora</label>
-                        <input type="time" name="hora" id="hora" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                        <input type="time" name="hora" id="hora" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition @error('hora') border-red-500 @enderror" value="{{ old('hora') }}" required>
+                        @error('hora')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
                         <label for="local" class="block text-sm font-medium text-slate-700 mb-1">Local</label>
-                        <input type="text" name="local" id="local" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                        <input type="text" name="local" id="local" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition @error('local') border-red-500 @enderror" value="{{ old('local') }}" required>
+                        @error('local')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="limite_vagas" class="block text-sm font-medium text-slate-700 mb-1">Limite de Vagas</label>
-                        <input type="number" name="limite_vagas" id="limite_vagas" min="1" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" required>
+                        <input type="number" name="limite_vagas" id="limite_vagas" min="1" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition @error('limite_vagas') border-red-500 @enderror" value="{{ old('limite_vagas') }}" required>
+                        @error('limite_vagas')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 

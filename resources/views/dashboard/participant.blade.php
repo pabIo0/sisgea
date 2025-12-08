@@ -40,7 +40,11 @@
                     </div>
                     <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex justify-between items-center">
                         <a href="{{ route('events.show', $inscricao->id) }}" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">Ver Detalhes</a>
-                        <button class="text-red-500 hover:text-red-700 font-medium text-sm">Cancelar</button>
+                        <form action="{{ route('events.cancelar', $inscricao->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja cancelar sua inscrição?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700 font-medium text-sm">Cancelar</button>
+                        </form>
                     </div>
                 </div>
             @endforeach
