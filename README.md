@@ -1,59 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sisgea: Sistema de Gestão de Eventos e Atividades
+## Visão Geral do Projeto
+O **Sisgea** é um projeto desenvolvido para a disciplina de Desenvolvimento Web 2, com o objetivo de oferecer uma plataforma completa para o gerenciamento de eventos e atividades acadêmicas. O sistema permite que organizadores criem e gerenciem eventos, enquanto participantes podem se inscrever e acompanhar suas atividades. A arquitetura segue o padrão MVC (Model-View-Controller) nativo do framework Laravel, garantindo organização, segurança e escalabilidade.
+## Funcionalidades Principais
+### Para Todos os Usuários
+*   **Autenticação**: Sistema completo de cadastro e login.
+*   **Visualização de Eventos**: Página inicial com listagem de eventos disponíveis.
+*   **Detalhes do Evento**: Página dedicada com informações completas sobre cada evento.
+### Para Participantes
+*   **Dashboard do Participante**: Área exclusiva para visualizar "Meus Eventos".
+*   **Inscrição**: Facilidade para se inscrever em eventos abertos.
+*   **Cancelamento**: Opção para cancelar a inscrição em eventos.
+### Para Organizadores
+*   **Dashboard do Organizador**: Visão geral dos eventos gerenciados.
+*   **Gerenciamento de Eventos (CRUD)**: Criar, visualizar, editar e excluir eventos.
+*   **Gestão de Inscritos**: Visualizar a lista de participantes inscritos em cada evento.
+## Tecnologias Utilizadas
+### Frontend
+*   **Laravel Blade**: Motor de templates para renderização dinâmica das views.
+*   **Tailwind CSS**: Framework CSS utilitário para estilização moderna e responsiva.
+*   **JavaScript**: Para interações dinâmicas no cliente.
+### Backend
+*   **PHP 8.2+**: Linguagem base do sistema.
+*   **Laravel 12**: Framework PHP robusto utilizado para toda a estrutura MVC, roteamento, autenticação e lógica de negócios.
+*   **MySQL**: Banco de dados relacional para persistência das informações.
+## Rotas da Aplicação
+### Públicas
+*   `GET /`: Página inicial (Lista de eventos).
+*   `GET /login`: Formulário de login.
+*   `POST /login`: Processamento do login.
+*   `GET /register`: Formulário de cadastro.
+*   `POST /register`: Processamento do cadastro.
+### Autenticadas (Participantes e Organizadores)
+*   `POST /logout`: Realizar logout.
+*   `GET /meus-eventos`: Dashboard do participante.
+*   `GET /events/{id}`: Detalhes do evento.
+*   `POST /events/{id}/inscrever`: Realizar inscrição.
+*   `DELETE /events/{id}/cancelar`: Cancelar inscrição.
+### Exclusivas de Organizadores
+*   `GET /organizador`: Dashboard do organizador.
+*   `GET /events/{id}/inscritos`: Lista de inscritos no evento.
+*   `RESOURCE /events`: Rotas CRUD completas para eventos (index, create, store, edit, update, destroy).
+## Como Usar
+### Pré-requisitos
+*   PHP 8.2 ou superior
+*   Laravel
+*   Composer
+*   MySQL
+### Instalação
+1.  **Clone o repositório:**
+    ```bash
+    git clone <url-do-repositorio>
+    cd sisgea
+    ```
+2.  **Instale as dependências do backend:**
+    ```bash
+    composer install
+    ```
+3.  **Instale as dependências do frontend:**
+    ```bash
+    npm install
+    ```
+4.  **Configure o ambiente:**
+    Copie o arquivo de exemplo de configuração `.env` na raiz do projeto e configure as credenciais do banco de dados:
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=
+    DB_PORT=
+    DB_DATABASE=
+    DB_USERNAME=
+    DB_PASSWORD=
+    ```
+5.  **Gere a chave da aplicação:**
+    ```bash
+    php artisan key:generate
+    ```
+6.  **Execute as migrações do banco de dados:**
+    ```bash
+    php artisan migrate
+    ```
+7.  **Inicie o servidor de desenvolvimento:**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    Em um terminal, inicie o servidor Laravel:
+    ```bash
+    php artisan serve
+    ```
+8.  **Acesse a aplicação:**
+    Abra o navegador em `http://localhost:8000`.
