@@ -61,14 +61,21 @@ O **Sisgea** é um projeto desenvolvido para a disciplina de Desenvolvimento Web
     npm install
     ```
 4.  **Configure o ambiente:**
-    Copie o arquivo de exemplo de configuração `.env` na raiz do projeto e configure as credenciais do banco de dados:
+    Copie o arquivo `.env.example` para o arquivo `.env`, usando o comando abaixo:
+    ```bash
+    copy .env.example .env
+    ```
+    
+    E depois, configure os campos abaixo de acordo com as suas configurações locais:
     ```env
     DB_CONNECTION=mysql
-    DB_HOST=
-    DB_PORT=
-    DB_DATABASE=
-    DB_USERNAME=
-    DB_PASSWORD=
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=sisgea_db	# Nome do banco de dados
+    DB_USERNAME=root		# Seu usuário do MySQL
+    DB_PASSWORD= 		    # Senha do seu banco de dados
+
+    SESSION_DRIVER=file
     ```
 5.  **Gere a chave da aplicação:**
     ```bash
