@@ -36,6 +36,10 @@ Route::middleware(['auth'])->group(function () {
         // Ver Inscritos
         Route::get('/events/{id}/inscritos', [EventController::class, 'verInscritos'])->name('events.inscritos');
 
+        // Eventos Excluídos
+        Route::get('/events-excluidos', [EventController::class, 'eventosExcluidos'])->name('events.excluidos');
+        Route::post('/events/{id}/restaurar', [EventController::class, 'restaurar'])->name('events.restaurar');
+
         // CRUD de Eventos 
         Route::resource('events', EventController::class)->except(['show']);
     });

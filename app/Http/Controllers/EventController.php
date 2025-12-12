@@ -13,7 +13,7 @@ class EventController extends Controller
     // Listar eventos
     public function index()
     {
-        $eventos = Evento::all();
+        $eventos = Evento::all(); // SoftDeletes automaticamente exclui eventos deletados
 
         return view('welcome', ['eventos' => $eventos]);
     }
@@ -89,7 +89,7 @@ class EventController extends Controller
     public function dashboardOrganizer()
     {
         $user = Auth::user();
-        $eventos = Evento::where('usuario_id', $user->id)->get();
+        $eventos = Evento::where('usuario_id', $user->id)->get(); // SoftDeletes automaticamente exclui eventos deletados
 
         return view('dashboard.organizer', compact('eventos'));
     }
@@ -166,5 +166,29 @@ class EventController extends Controller
         return view('events.inscritos', compact('evento', 'inscritos'));
     }
 
+    // Listar eventos excluídos (soft deleted)
+    public function eventosExcluidos()
+    {
+        $user = Auth::user();
+        $eventosExcluidos = Evento::onlyTrashed()
+            ->where('usuario_id', $user->id)
+            ->get();
+
+        return view('events.excluidos', compact('eventosExcluidos'));
+    }
+
+    // Restaurar evento excluído
+    public function restaurar($id)
+    {
+        $evento = Evento::onlyTrashed()->findOrFail($id);
+
+        if (Auth::id() != $evento->usuario_id) {
+            return redirect()->route('dashboard.organizer')->with('error', 'Acesso negado.');
+        }
+
+        $evento->restore();
+
+        return redirect()->route('events.excluidos')->with('success', 'Evento restaurado com sucesso!');
+    }
 
 }

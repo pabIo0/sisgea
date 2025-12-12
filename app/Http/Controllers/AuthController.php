@@ -22,6 +22,16 @@ class AuthController extends Controller
             'email' => 'required|email|unique:USUARIOS,email', // Verifica se o email é único na tabela USUARIOS 
             'senha' => 'required|min:6|confirmed', // 'confirmed' checa o campo senha_confirmation
             'perfil' => 'required|in:participante,organizador' // Garante que é um dos dois
+        ], [
+            'email.unique' => 'Este email já está cadastrado. Por favor, use outro email ou faça login.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email' => 'Por favor, insira um email válido.',
+            'nome.required' => 'O campo nome é obrigatório.',
+            'senha.required' => 'O campo senha é obrigatório.',
+            'senha.min' => 'A senha deve ter no mínimo 6 caracteres.',
+            'senha.confirmed' => 'As senhas não coincidem.',
+            'perfil.required' => 'Por favor, selecione um perfil.',
+            'perfil.in' => 'O perfil selecionado é inválido.'
         ]);
 
         // Criar usuário

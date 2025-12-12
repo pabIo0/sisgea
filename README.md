@@ -14,6 +14,7 @@ O **Sisgea** é um projeto desenvolvido para a disciplina de Desenvolvimento Web
 *   **Dashboard do Organizador**: Visão geral dos eventos gerenciados.
 *   **Gerenciamento de Eventos (CRUD)**: Criar, visualizar, editar e excluir eventos.
 *   **Gestão de Inscritos**: Visualizar a lista de participantes inscritos em cada evento.
+*   **Recuperação de Eventos**: Visualizar e restaurar eventos que foram excluídos (soft delete).
 ## Tecnologias Utilizadas
 ### Frontend
 *   **Laravel Blade**: Motor de templates para renderização dinâmica das views.
@@ -39,6 +40,8 @@ O **Sisgea** é um projeto desenvolvido para a disciplina de Desenvolvimento Web
 ### Exclusivas de Organizadores
 *   `GET /organizador`: Dashboard do organizador.
 *   `GET /events/{id}/inscritos`: Lista de inscritos no evento.
+*   `GET /events-excluidos`: Lista de eventos excluídos (soft deleted).
+*   `POST /events/{id}/restaurar`: Restaurar um evento excluído.
 *   `RESOURCE /events`: Rotas CRUD completas para eventos (index, create, store, edit, update, destroy).
 ## Como Usar
 ### Pré-requisitos
