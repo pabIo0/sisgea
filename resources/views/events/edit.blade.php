@@ -15,7 +15,7 @@
         <div class="p-8">
             <h2 class="text-2xl font-bold text-slate-800 mb-6">Editar Evento</h2>
 
-            <form action="{{ route('events.update', $evento->id) }}" method="POST">
+            <form action="{{ route('events.update', $evento->id) }}" method="POST" novalidate>
                 @csrf
                 @method('PUT') <div class="mb-6">
                     <label for="titulo" class="block text-sm font-medium text-slate-700 mb-1">Título</label>

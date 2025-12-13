@@ -15,8 +15,7 @@
         <div class="p-8">
             <h2 class="text-2xl font-bold text-slate-800 mb-6">Criar Novo Evento</h2>
 
-            <form action="{{ route('events.store') }}" method="POST">
-                @csrf
+            <form action="{{ route('events.store') }}" method="POST" novalidate> @csrf
 
                 <div class="mb-6">
                     <label for="titulo" class="block text-sm font-medium text-slate-700 mb-1">Título do Evento</label>

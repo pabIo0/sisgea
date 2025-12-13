@@ -18,7 +18,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login.post') }}"> @csrf
+            <form method="POST" action="{{ route('login.post') }}" novalidate> @csrf
 
                 <div class="mb-5">
                     <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>

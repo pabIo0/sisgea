@@ -13,18 +13,24 @@ class InscricaoController extends Controller
 
     $user = Auth::user();
     $evento = Evento::findOrFail($eventoId);
-    // 1. Verifica se já está lotado
+    
+    // 1. Verifica se o usuário é o organizador do evento
+    if ($evento->usuario_id == $user->id) {
+        return back()->with('error', 'O organizador do evento não pode se inscrever no próprio evento.');
+    }
+    
+    // 2. Verifica se já está lotado
     if ($evento->estaLotado()) {
         return back()->with('error', 'Desculpe, as vagas para este evento esgotaram.');
     }
     
-    // 2. Verifica se o usuário já está inscrito
+    // 3. Verifica se o usuário já está inscrito
     $jaInscrito = $evento->inscricoes()->where('usuario_id', $user->id)->exists();
     if ($jaInscrito) {
         return back()->with('warning', 'Você já está inscrito neste evento.');
     }
 
-    // 3. Cria a inscrição
+    // 4. Cria a inscrição
     Inscricao::create([
         'evento_id' => $evento->id,
         'usuario_id' => $user->id,

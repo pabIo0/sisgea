@@ -39,6 +39,16 @@ class EventController extends Controller
             }],
             'local' => 'required',
             'limite_vagas' => 'required|integer'
+        ], [
+            'data.required' => 'O campo data é obrigatório.',
+            'data.date' => 'A data informada é inválida.',
+            'data.after_or_equal' => 'A data do evento não pode ser no passado.',
+            'hora.required' => 'O campo hora é obrigatório.',
+            'titulo.required' => 'O campo título é obrigatório.',
+            'descricao.required' => 'O campo descrição é obrigatório.',
+            'local.required' => 'O campo local é obrigatório.',
+            'limite_vagas.required' => 'O campo limite de vagas é obrigatório.',
+            'limite_vagas.integer' => 'O limite de vagas deve ser um número inteiro.'
         ]);
 
         // Salvar
@@ -63,14 +73,17 @@ class EventController extends Controller
 
         // Verifica se o usuário está logado
         $jaInscrito = false;
+        $eOrganizador = false;
 
         if (Auth::check()) {
             $jaInscrito = Inscricao::where('usuario_id', Auth::id())
                 ->where('evento_id', $id)
                 ->exists();
+            // Verifica se o usuário é o organizador do evento
+            $eOrganizador = $evento->usuario_id == Auth::id();
         }
 
-        return view('events.show', compact('evento', 'jaInscrito'));
+        return view('events.show', compact('evento', 'jaInscrito', 'eOrganizador'));
     }
 
     // Dashboard do Participante
@@ -130,6 +143,16 @@ class EventController extends Controller
                     $fail("O limite de vagas não pode ser menor que o número de inscritos atuais ($totalInscritos).");
                 }
             }]
+        ], [
+            'data.required' => 'O campo data é obrigatório.',
+            'data.date' => 'A data informada é inválida.',
+            'data.after_or_equal' => 'A data do evento não pode ser no passado.',
+            'hora.required' => 'O campo hora é obrigatório.',
+            'titulo.required' => 'O campo título é obrigatório.',
+            'descricao.required' => 'O campo descrição é obrigatório.',
+            'local.required' => 'O campo local é obrigatório.',
+            'limite_vagas.required' => 'O campo limite de vagas é obrigatório.',
+            'limite_vagas.integer' => 'O limite de vagas deve ser um número inteiro.'
         ]);
 
         $evento->update($request->all());

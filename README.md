@@ -8,7 +8,7 @@ O **Sisgea** é um projeto desenvolvido para a disciplina de Desenvolvimento Web
 *   **Detalhes do Evento**: Página dedicada com informações completas sobre cada evento.
 ### Para Participantes
 *   **Dashboard do Participante**: Área exclusiva para visualizar "Meus Eventos".
-*   **Inscrição**: Facilidade para se inscrever em eventos abertos.
+*   **Inscrição**: Facilidade para se inscrever em eventos abertos (organizadores não podem se inscrever em seus próprios eventos).
 *   **Cancelamento**: Opção para cancelar a inscrição em eventos.
 ### Para Organizadores
 *   **Dashboard do Organizador**: Visão geral dos eventos gerenciados.
