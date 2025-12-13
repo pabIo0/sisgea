@@ -23,7 +23,12 @@
                 <div class="flex">
                     <div class="shrink-0 flex items-center">
                         <a href="{{ url('/') }}">
-                            <img src="{{ asset('images/logo.png') }}" alt="SISGEA" class="h-14 w-auto">
+                            <img src="{{ asset('images/logo.png') }}" 
+                            width="128" 
+                            height="40" 
+                            class="w-32 h-auto" 
+                            alt="SISGEA"
+                            fetchpriority="high">
                         </a>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
